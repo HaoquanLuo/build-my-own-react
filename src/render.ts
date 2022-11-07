@@ -1,5 +1,4 @@
-import { createTextElement } from './createElement'
-import { NodeElement, Container } from './types'
+import { NodeElement, Container, DOMType } from 'Didact'
 
 function render(element: NodeElement, container: Container) {
   /**
@@ -10,9 +9,7 @@ function render(element: NodeElement, container: Container) {
       ? document.createTextNode('')
       : document.createElement(element.type)
 
-  element.props?.children?.forEach((child) => {
-    render(child, dom)
-  })
+  element.props?.children?.forEach((child) => render(child, dom))
 
   const isProperty = (key: string) => key !== 'children'
   Object.keys(element.props)

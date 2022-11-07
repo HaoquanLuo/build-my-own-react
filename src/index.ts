@@ -1,4 +1,4 @@
-import { createElement, createTextElement } from './createElement'
+import { createElement } from './createElement'
 import { render } from './render'
 
 const Didact = {

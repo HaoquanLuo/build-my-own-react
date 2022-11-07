@@ -1,7 +1,6 @@
-// import * as step1 from './steps/step1';
+// import Didact from 'Didact'
 import Didact from './src'
 
-/** @jsx Didact.createElement */
 const element = (
   <div id="foo">
     <a>bar</a>

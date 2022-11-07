@@ -7,11 +7,8 @@
     [
       "@babel/plugin-transform-react-jsx",
       {
-        "pragma": "dom",
+        "pragma": "Didact.createElement" /** 不需要 babel 注释转换 jsx */,
         "pragmaFrag": "DocumentFragment"
-        // "throwIfNamespace": false // defaults to true
-        // "runtime": "automatic" // defaults to classic
-        // "importSource": "core" // defaults to react
       }
     ]
   ]

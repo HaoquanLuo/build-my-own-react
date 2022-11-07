@@ -1,4 +1,4 @@
-import { EL, ElementProps, NodeElement, TextElement } from './types'
+import { EL, ElementProps, NodeElement, TextElement } from 'Didact'
 
 function createElement(
   type: string,

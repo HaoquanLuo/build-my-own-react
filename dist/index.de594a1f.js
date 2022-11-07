@@ -142,14 +142,14 @@
       this[globalName] = mainExports;
     }
   }
-})({"aKg1r":[function(require,module,exports) {
+})({"18cAl":[function(require,module,exports) {
 "use strict";
 var global = arguments[3];
 var HMR_HOST = null;
 var HMR_PORT = null;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "d6ea1d42532a7575";
-module.bundle.HMR_BUNDLE_ID = "cc3c5cbe4a6ae93d";
+module.bundle.HMR_BUNDLE_ID = "046effc5de594a1f";
 /* global HMR_HOST, HMR_PORT, HMR_ENV_HASH, HMR_SECURE, chrome, browser, globalThis, __parcel__import__, __parcel__importScripts__, ServiceWorkerGlobalScope */ /*::
 import type {
   HMRAsset,
@@ -531,69 +531,10 @@ function hmrAcceptRun(bundle, id) {
     acceptedAssets[id] = true;
 }
 
-},{}],"4jOxV":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-// import Didact from 'Didact'
-var _src = require("./src");
-var _srcDefault = parcelHelpers.interopDefault(_src);
-const element = (0, _srcDefault.default).createElement("div", {
-    id: "foo"
-}, (0, _srcDefault.default).createElement("a", null, "bar"), (0, _srcDefault.default).createElement("b", null));
-console.log("hello Didact");
-const container = document.getElementById("root");
-(0, _srcDefault.default).render(element, container);
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"dD9Xw","./src":"h7u1C"}],"dD9Xw":[function(require,module,exports) {
-exports.interopDefault = function(a) {
-    return a && a.__esModule ? a : {
-        default: a
-    };
-};
-exports.defineInteropFlag = function(a) {
-    Object.defineProperty(a, "__esModule", {
-        value: true
-    });
-};
-exports.exportAll = function(source, dest) {
-    Object.keys(source).forEach(function(key) {
-        if (key === "default" || key === "__esModule" || dest.hasOwnProperty(key)) return;
-        Object.defineProperty(dest, key, {
-            enumerable: true,
-            get: function() {
-                return source[key];
-            }
-        });
-    });
-    return dest;
-};
-exports.export = function(dest, destName, get) {
-    Object.defineProperty(dest, destName, {
-        enumerable: true,
-        get: get
-    });
-};
-
-},{}],"h7u1C":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "createElement", ()=>(0, _createElement.createElement));
-parcelHelpers.export(exports, "render", ()=>(0, _render.render));
-var _createElement = require("./createElement");
-var _render = require("./render");
-const Didact = {
-    createElement: (0, _createElement.createElement),
-    render: (0, _render.render)
-};
-exports.default = Didact;
-
-},{"./createElement":"5d3FQ","./render":"9AS2t","@parcel/transformer-js/src/esmodule-helpers.js":"dD9Xw"}],"5d3FQ":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "createElement", ()=>createElement);
-parcelHelpers.export(exports, "createTextElement", ()=>createTextElement);
+},{}],"9V8pt":[function(require,module,exports) {
 function createElement(type, props, ...children) {
     return {
-        type,
+        type: type,
         props: {
             ...props,
             children: children.map((child)=>typeof child === "object" ? child : createTextElement(child))
@@ -604,29 +545,33 @@ function createTextElement(text) {
     return {
         type: "TEXT_ELEMENT",
         props: {
-            nodeValue: text
+            nodeValue: text,
+            children: []
         }
     };
 }
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"dD9Xw"}],"9AS2t":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "render", ()=>render);
 function render(element, container) {
-    /**
-   * @todo 完善dom类型
-   */ const dom = element.type === "TEXT_ELEMENT" ? document.createTextNode("") : document.createElement(element.type);
-    element.props?.children?.forEach((child)=>{
-        render(child, dom);
-    });
+    const dom = element.type === "TEXT_ELEMENT" ? document.createTextNode("") : document.createElement(element.type);
     const isProperty = (key)=>key !== "children";
     Object.keys(element.props).filter(isProperty).forEach((name)=>{
         dom[name] = element.props[name];
     });
+    element.props.children.forEach((child)=>{
+        render(child, dom);
+    });
     container.appendChild(dom);
 }
+const Didact = {
+    createElement,
+    render
+};
+/** @jsx Didact.createElement */ const element = Didact.createElement("div", {
+    id: "foo"
+}, Didact.createElement("a", null, "bar"), Didact.createElement("b", null));
+console.log("hello Didact");
+const container = document.getElementById("root");
+Didact.render(element, container);
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"dD9Xw"}]},["aKg1r","4jOxV"], "4jOxV", "parcelRequire02c3")
+},{}]},["18cAl","9V8pt"], "9V8pt", "parcelRequire02c3")
 
-//# sourceMappingURL=index.4a6ae93d.js.map
+//# sourceMappingURL=index.de594a1f.js.map
