@@ -1,6 +1,6 @@
 function createElement(type, props, ...children) {
   return {
-    type: type,
+    type,
     props: {
       ...props,
       children: children.map((child) =>
@@ -24,16 +24,11 @@ function createTextElement(text) {
 
 function createDom(fiber) {
   const dom =
-    fiber.type === 'TEXT_ELEMENT'
+    fiber.type == 'TEXT_ELEMENT'
       ? document.createTextNode('')
       : document.createElement(fiber.type)
 
-  const isProperty = (key) => key !== 'children'
-  Object.keys(fiber.props)
-    .filter(isProperty)
-    .forEach((name) => {
-      dom[name] = fiber.props[name]
-    })
+  updateDom(dom, {}, fiber.props)
 
   return dom
 }
@@ -136,7 +131,6 @@ function workLoop(deadline) {
   let shouldYield = false
   while (nextUnitOfWork && !shouldYield) {
     nextUnitOfWork = performUnitOfWork(nextUnitOfWork)
-
     shouldYield = deadline.timeRemaining() < 1
   }
 
@@ -149,23 +143,14 @@ function workLoop(deadline) {
 
 requestIdleCallback(workLoop)
 
-/**
- * step6: reconciliation
- *   1. remove the part that mutates the DOM
- *   2. assign a variable for the work in progress root
- */
 function performUnitOfWork(fiber) {
-  // first we keep track of dom
   if (!fiber.dom) {
     fiber.dom = createDom(fiber)
   }
 
-  // then we create fiber for each child
   const elements = fiber.props.children
   reconcileChildren(fiber, elements)
 
-  // finally we search and return next unit of work,
-  // first child, second sibling, third uncle
   if (fiber.child) {
     return fiber.child
   }
@@ -186,12 +171,10 @@ function reconcileChildren(wipFiber, elements) {
 
   while (index < elements.length || oldFiber != null) {
     const element = elements[index]
-
     let newFiber = null
 
-    // TODO compare oldFiber to element
     const sameType =
-      oldFiber && element && oldFiber.type == element.type
+      oldFiber && element && element.type == oldFiber.type
 
     if (sameType) {
       newFiber = {
@@ -203,20 +186,17 @@ function reconcileChildren(wipFiber, elements) {
         effectTag: 'UPDATE',
       }
     }
-
     if (element && !sameType) {
       newFiber = {
-        type: oldFiber.type,
+        type: element.type,
         props: element.props,
         dom: null,
         parent: wipFiber,
-        alternate: oldFiber,
+        alternate: null,
         effectTag: 'PLACEMENT',
       }
     }
-
     if (oldFiber && !sameType) {
-      // TODO delete the oldFiber's node
       oldFiber.effectTag = 'DELETION'
       deletions.push(oldFiber)
     }
@@ -226,13 +206,13 @@ function reconcileChildren(wipFiber, elements) {
     }
 
     if (index === 0) {
-      fiber.child = newFiber
-    } else {
+      wipFiber.child = newFiber
+    } else if (element) {
       prevSibling.sibling = newFiber
     }
 
     prevSibling = newFiber
-    index += 1
+    index++
   }
 }
 
@@ -242,14 +222,9 @@ const Didact = {
 }
 
 /** @jsx Didact.createElement */
-const element = (
-  <div id="foo">
-    <a>bar</a>
-    <b />
-  </div>
-)
-
-console.log('hello Didact')
-
+function App(props) {
+  return <h1>Hi {props.name}</h1>
+}
+const element = <App name="foo" />
 const container = document.getElementById('root')
 Didact.render(element, container)
