@@ -3,32 +3,35 @@
   "compilerOptions": {
     /* Language and Environment */
     "target": "ES2015" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
-    // "lib": [],                                        /* Specify a set of bundled library declaration files that describe the target runtime environment. */
+    "lib": [
+      "DOM",
+      "ESNext"
+    ], /* Specify a set of bundled library declaration files that describe the target runtime environment. */
     "jsx": "react" /* Specify what JSX code is generated. */,
     "jsxFactory": "Didact.createElement" /* Specify the JSX factory function used when targeting React JSX emit, e.g. 'React.createElement' or 'h'. */,
     // "jsxFragmentFactory": "Fragment" /* Specify the JSX Fragment reference used for fragments when targeting React JSX emit e.g. 'React.Fragment' or 'Fragment'. */,
     // "jsxImportSource": "",                            /* Specify module specifier used to import the JSX factory functions when using 'jsx: react-jsx*'. */
-
     /* Modules */
     "module": "ESNext" /* Specify what module code is generated. */,
     "rootDir": "./" /* Specify the root folder within your source files. */,
     "baseUrl": "./" /* Specify the base directory to resolve non-relative module names. */,
     "paths": {
-      "*": ["types/*"]
+      "*": [
+        "types/*"
+      ]
     } /* Specify a set of entries that re-map imports to additional lookup locations. */,
-    "typeRoots": ["types"],
+    "typeRoots": [
+      "types"
+    ],
     "moduleResolution": "Node",
-
     /* Emit */
     "declaration": true /* Generate .d.ts files from TypeScript and JavaScript files in your project. */,
     "outDir": "build" /* Specify an output folder for all emitted files. */,
     "esModuleInterop": true /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */,
     "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
     "allowSyntheticDefaultImports": true,
-
     /* Type Checking */
     "strict": true /* Enable all strict type-checking options. */,
-
     /* Completeness */
     "skipLibCheck": true /* Skip type checking all .d.ts files. */
   }

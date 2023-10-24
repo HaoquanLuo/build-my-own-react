@@ -12,30 +12,40 @@ declare namespace Didact {
     ...children: EL[]
   ): NodeElement
 
+  function createDom(element: NodeElement): void
+
   function render(element: NodeElement, container: Container): void
 
-  type ElementProps = {
+  type ElementProps<T> = {
     [key: string]: any
     id?: string
-    children?: EL[]
+    children?: Array<T>
     nodeValue?: string
   }
 
   type EL = TextElement | NodeElement
 
-  type DOMType = HTMLElement | Text
-
-  type TextElement = {
+  interface TextElement {
     type: 'TEXT_ELEMENT'
     props: ElementProps
   }
 
-  type NodeElement = {
-    type: string
+  interface NodeElement {
+    type: keyof HTMLElementTagNameMap
     props: ElementProps
   }
 
-  type Container = HTMLElement
+  type Container = HTMLElement | Text
+
+  interface Fiber {
+    [key: any]: any
+    type?: keyof HTMLElementTagNameMap | 'TEXT_ELEMENT'
+    props?: ElementProps<Fiber>
+    dom?: any
+    parent?: Fiber
+    child?: Fiber
+    sibling?: Fiber
+  }
 }
 
 declare global {

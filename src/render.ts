@@ -1,24 +1,17 @@
-import { NodeElement, Container, DOMType } from 'Didact'
+import { Container, Fiber, EL } from 'Didact'
 
-function render(element: NodeElement, container: Container) {
-  /**
-   * @todo 完善dom类型
-   */
-  const dom: any =
-    element.type === 'TEXT_ELEMENT'
-      ? document.createTextNode('')
-      : document.createElement(element.type)
+function render(element: EL, container: Container) {
+  wipRoot = {
+    dom: container,
+    props: {
+      children: [element],
+    },
+  }
 
-  element.props?.children?.forEach((child) => render(child, dom))
-
-  const isProperty = (key: string) => key !== 'children'
-  Object.keys(element.props)
-    .filter(isProperty)
-    .forEach((name) => {
-      dom[name] = element.props[name]
-    })
-
-  container.appendChild(dom)
+  nextUnitOfWork = wipRoot
 }
+
+let wipRoot: Fiber
+let nextUnitOfWork: Fiber
 
 export { render }

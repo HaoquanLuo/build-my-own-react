@@ -1,8 +1,8 @@
-import { EL, ElementProps, NodeElement, TextElement } from 'Didact'
+import { EL, ElementProps, Fiber, NodeElement, TextElement } from 'Didact'
 
 function createElement(
-  type: string,
-  props: ElementProps,
+  type: keyof HTMLElementTagNameMap,
+  props: ElementProps<NodeElement>,
   ...children: EL[]
 ): NodeElement {
   return {
@@ -25,4 +25,25 @@ function createTextElement(text: string): TextElement {
   }
 }
 
-export { createElement, createTextElement }
+function createDom(fiber: Fiber) {
+  /**
+   * @todo 完善dom类型
+   */
+  const dom: any =
+    fiber.type === 'TEXT_ELEMENT'
+      ? document.createTextNode('')
+      : document.createElement(fiber.type!)
+
+  const isProperty = (key: string) => key !== 'children'
+  if (fiber.props) {
+    Object.keys(fiber.props)
+      .filter(isProperty)
+      .forEach((name) => {
+        dom[name] = fiber.props?.[name]
+      })
+  }
+
+  return dom
+}
+
+export { createElement, createTextElement, createDom }
